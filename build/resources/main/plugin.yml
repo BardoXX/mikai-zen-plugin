@@ -1,0 +1,81 @@
+name: MegaMCMinetopia
+version: 1.0
+depend: [Vault]
+main: com.megamc.minetopia.Minetopia
+api-version: 1.20
+
+commands:
+  lening:
+    description: Maak een leningsovereenkomst
+    permission: megamc.lening
+    permission-message: Je hebt geen toestemming om dit commando te gebruiken.
+  vergunning:
+    description: Maak een vergunning
+    permission: megamc.vergunning
+    permission-message: Je hebt geen toestemming om dit commando te gebruiken.
+  kvk:
+    description: Registreer een bedrijf
+    permission: megamc.kvk
+    permission-message: Je hebt geen toestemming om dit commando te gebruiken.
+  contract:
+    description: Maak een contract
+    permission: megamc.contract
+    permission-message: Je hebt geen toestemming om dit commando te gebruiken.
+  passport:
+    description: Maak een paspoort
+    permission: megamc.passport
+    permission-message: Je hebt geen toestemming om dit commando te gebruiken.
+  straf:
+    description: Geef een sanctie
+    permission: megamc.straf
+    permission-message: Je hebt geen toestemming om dit commando te gebruiken.
+  boete:
+    description: Geef een boete aan een speler
+    permission: megamc.boete
+  fouilleer:
+    description: Bekijk de inventory van een speler
+    permission: megamc.fouilleer
+  saldo:
+    description: Bekijk je saldo
+    permission: megamc.saldo
+  betaal:
+    description: Betaal geld aan een speler
+    permission: megamc.betaal
+  megamcminetopiareload:
+    description: Reloads the MegaMC Minetopia plugin config
+    usage: /<command>
+  vanish:
+    description: Toggle vanish mode
+    usage: /vanish
+    permission: megamc.vanish
+    permission-message: "§cYou do not have permission to use this command!"
+
+permissions:
+  megamc.lening:
+    description: Toegang tot /lening
+    default: op
+  megamc.vergunning:
+    description: Toegang tot /vergunning
+    default: op
+  megamc.kvk:
+    description: Toegang tot /kvk
+    default: op
+  megamc.contract:
+    description: Toegang tot /contract
+    default: op
+  megamc.passport:
+    description: Toegang tot /passport
+    default: op
+  megamc.straf:
+    description: Toegang tot /straf
+    default: op
+  megamc.boete:
+    description: Toestemming om /boete te gebruiken
+    default: op
+  megamc.fouilleer:
+    default: op
+  megamc.saldo:
+    default: true
+  megamc.betaal:
+    default: true
+
