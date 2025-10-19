@@ -41,9 +41,18 @@ commands:
   betaal:
     description: Betaal geld aan een speler
     permission: megamc.betaal
-  megamcminetopiareload:
-    description: Reloads the MegaMC Minetopia plugin config
-    usage: /<command>
+  help:
+    description: Toon alle beschikbare commands
+    permission: megamc.help
+  pin:
+    description: Stuur of accepteer betaalverzoeken
+    permission: megamc.pin
+    usage: /pin <send|accept|set|remove>
+  atm:
+    description: Open de ATM GUI voor bank transacties.
+    permission: megamc.atm
+    permission-message: Je hebt geen toestemming om dit commando te gebruiken.
+    usage: /atm
   vanish:
     description: Toggle vanish mode
     usage: /vanish
@@ -78,4 +87,12 @@ permissions:
     default: true
   megamc.betaal:
     default: true
-
+  megamc.help:
+    description: Toegang tot /help
+    default: true
+  megamc.vanish:
+    description: Toegang tot /vanish
+    default: op
+  megamc.pin:
+    description: Toegang tot /pin
+    default: op

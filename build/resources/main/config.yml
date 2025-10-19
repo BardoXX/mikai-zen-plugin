@@ -1,0 +1,15 @@
+# MegaMCMinetopia Plugin Configuration
+
+# ATM Settings
+atm:
+  maximum-bedrag: 10000.0
+  kosten-percentage: 0.02
+  minimum-kosten: 10.0
+
+# ATM Block Locations (automatisch beheerd)
+atm:
+  blocks: []
+
+# PIN Block Locations (automatisch beheerd)
+pin:
+  blocks: []
