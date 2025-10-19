@@ -38,12 +38,13 @@ commands:
   saldo:
     description: Bekijk je saldo
     permission: megamc.saldo
-  betaal:
-    description: Betaal geld aan een speler
-    permission: megamc.betaal
-  megamcminetopiareload:
-    description: Reloads the MegaMC Minetopia plugin config
-    usage: /<command>
+  pin:
+    description: Stuur of accepteer betaalverzoeken
+    permission: megamc.pin
+    usage: /pin <send|accept|set|remove>
+  help:
+    description: Toon alle beschikbare commands
+    permission: megamc.help
   vanish:
     description: Toggle vanish mode
     usage: /vanish
@@ -76,6 +77,13 @@ permissions:
     default: op
   megamc.saldo:
     default: true
-  megamc.betaal:
+  megamc.help:
+    description: Toegang tot /help
     default: true
+  megamc.pin:
+    description: Toegang tot /pin
+    default: true
+  megamc.vanish:
+    description: Toegang tot /vanish
+    default: op
 
