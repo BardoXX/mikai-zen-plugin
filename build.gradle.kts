@@ -7,16 +7,18 @@ version = "1.0.0"
 
 repositories {
     mavenCentral()
+    maven { url = uri("https://repo.spongepowered.org/repository/maven-public/") }
     maven { url = uri("https://hub.spigotmc.org/nexus/content/repositories/snapshots/") }
     maven { url = uri("https://oss.sonatype.org/content/repositories/snapshots") }
-    maven { url = uri("https://jitpack.io") } // <-- Add JitPack
+    maven { url = uri("https://jitpack.io") }
+    maven { url = uri("https://repo.maven.apache.org/maven2/") }
 }
 
 dependencies {
     compileOnly("com.github.MilkBowl:VaultAPI:1.7")
-    compileOnly("org.spigotmc:spigot-api:1.20-R0.1-SNAPSHOT")
-    implementation("net.kyori:adventure-api:4.14.0")
-    implementation("net.kyori:adventure-platform-bukkit:4.1.1")
+    compileOnly("org.spigotmc:spigot-api:1.18.2-R0.1-SNAPSHOT")
+    compileOnly("com.github.PlaceholderAPI:PlaceholderAPI:2.10.9")
+    compileOnly("net.luckperms:api:5.3")
 }
 
 java {

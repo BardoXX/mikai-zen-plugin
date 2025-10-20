@@ -26,6 +26,9 @@ public class ReloadCommand implements CommandExecutor {
 
         sender.sendMessage("§aMegaMCMinetopia configuration reloaded successfully!");
 
+        // Reload scoreboard and tablist configuration
+        plugin.reloadScoreboardTablistConfig();
+
         return true;
     }
 }

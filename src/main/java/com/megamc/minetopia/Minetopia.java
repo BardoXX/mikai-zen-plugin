@@ -35,10 +35,13 @@ import com.megamc.minetopia.commands.SaldoCommand;
 import com.megamc.minetopia.commands.StrafCommand;
 import com.megamc.minetopia.commands.VanishCommand;
 import com.megamc.minetopia.commands.VergunningCommand;
+import com.megamc.minetopia.ScoreboardManager;
+import com.megamc.minetopia.TablistManager;
 import com.megamc.minetopia.events.ATMBlockListener;
 import com.megamc.minetopia.events.ATMChatListener;
-import com.megamc.minetopia.events.BalanceEvent;
 import com.megamc.minetopia.events.DisableCraft;
+import com.megamc.minetopia.events.BalanceEvent;
+import com.megamc.minetopia.events.ScoreboardTablistListener;
 
 import net.milkbowl.vault.economy.Economy;
 
@@ -47,6 +50,9 @@ public class Minetopia extends JavaPlugin {
     private static Economy econ = null;
     private final Set<Location> atmBlocks = new HashSet<>();
     private final Set<Location> pinBlocks = new HashSet<>();
+
+    private ScoreboardManager scoreboardManager;
+    private TablistManager tablistManager;
 
     @Override
     public void onEnable() {
@@ -65,6 +71,10 @@ public class Minetopia extends JavaPlugin {
 
         // Load ATM blocks from config
         loadATMBlocks();
+
+        // Initialize scoreboard and tablist managers
+        scoreboardManager = new ScoreboardManager(this);
+        tablistManager = new TablistManager(this);
 
         registerCommands();
         registerEvents();
@@ -136,6 +146,9 @@ public class Minetopia extends JavaPlugin {
     private void registerEvents() {
         Bukkit.getPluginManager().registerEvents(new BalanceEvent(getEconomy()), this);
         Bukkit.getPluginManager().registerEvents(new DisableCraft(), this);
+
+        // Register scoreboard and tablist event listener
+        Bukkit.getPluginManager().registerEvents(new ScoreboardTablistListener(scoreboardManager, tablistManager), this);
 
         // ATM GUI click handler
         Bukkit.getPluginManager().registerEvents(new Listener() {
@@ -275,9 +288,9 @@ public class Minetopia extends JavaPlugin {
         getLogger().info(String.format("Pin block toegevoegd op locatie: %s, X:%d, Y:%d, Z:%d", location.getWorld().getName(), location.getBlockX(), location.getBlockY(), location.getBlockZ()));
     }
 
-    public void removePinBlock(Location location) {
-        pinBlocks.remove(location);
-        savePinBlocks();
-        getLogger().info(String.format("Pin block verwijderd op locatie: %s, X:%d, Y:%d, Z:%d", location.getWorld().getName(), location.getBlockX(), location.getBlockY(), location.getBlockZ()));
+    public void reloadScoreboardTablistConfig() {
+        scoreboardManager.loadConfig();
+        tablistManager.reload();
+        getLogger().info("Scoreboard and tablist configuration reloaded!");
     }
 }

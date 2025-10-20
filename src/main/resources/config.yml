@@ -13,3 +13,63 @@ atm:
 # PIN Block Locations (automatisch beheerd)
 pin:
   blocks: []
+
+# Scoreboard Configuration
+scoreboard:
+  enabled: true
+  title: "&6&lMinetopia"
+  update-interval: 20  # ticks (1 seconde)
+  lines:
+    - "&7&m--------------------"
+    - "&eSpeler: &f%player_name%"
+    - "&eGeld: &a%vault_eco_balance_formatted%"
+    - "&eLevel: &f%player_level%"
+    - "&eOnline: &f%server_online%"
+    - "&7&m--------------------"
+    - "{#FF6B6B>MegaMC<#FFD93D} {#FF6B6B>Minetopia<#FFD93D}"
+    - "&7&m--------------------"
+
+  # Additional features (can be toggled)
+  features:
+    show-health: true
+    show-hunger: true
+    show-experience: true
+    show-tps: true
+    show-ping: true
+    show-world: true
+    show-coordinates: false  # Can be spammy, so disabled by default
+
+  # Color format settings
+  colors:
+    enable-hex-colors: true  # Support for &#FF0000
+    enable-rgb-colors: true  # Support for rgb(255,0,0)
+    enable-named-colors: true  # Support for "red", "blue", etc.
+    enable-gradients: true  # Support for {#FF0000>text<#00FF00}
+
+  # Animation settings (for future features)
+  animations:
+    enable-scrolling-text: false
+    scroll-speed: 2  # ticks per character
+
+  # Position and styling
+  styling:
+    title-color: "&6"  # Default title color
+    line-spacing: 1  # Lines between sections
+
+# Tablist Configuration
+tablist:
+  enabled: true
+  update-interval: 40  # ticks (2 seconden)
+  header:
+    - "&7&m--------------------"
+    - "{#FF6B6B>MegaMC<#FFD93D} {#FF6B6B>Minetopia<#FFD93D}"
+    - "&7&m--------------------"
+    - "&6&lMegaMC Minetopia"
+    - "&7Welkom op onze server!"
+    - "&7Online: &f%server_online%&7/&f%server_max_players%"
+  footer:
+    - "&7&m--------------------"
+    - "&7Website: &e&nwww.megamc.nl"
+    - "&7Discord: &e&ndiscord.gg/megamc"
+    - "&e&lVeel plezier!"
+    - "&7&m--------------------"
