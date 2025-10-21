@@ -28,6 +28,10 @@ public class ATMGUI {
         this.cooldowns = cooldowns;
     }
 
+    public Map<UUID, ATMAction> getWaitingForInput() {
+        return waitingForInput;
+    }
+
     public void openATMGUI(Player player) {
         Inventory gui = Bukkit.createInventory(null, 27, ChatColor.YELLOW + "🏦 ATM - Bankautomaat");
 
@@ -205,7 +209,7 @@ public class ATMGUI {
         }
     }
 
-    private void handleWithdraw(Player player, double bedrag) {
+    public void handleWithdraw(Player player, double bedrag) {
         // Controleer maximum bedrag
         double maxBedrag = plugin.getConfig().getDouble("atm.maximum-bedrag", 10000.0);
         if (bedrag > maxBedrag) {
@@ -242,7 +246,7 @@ public class ATMGUI {
         cooldowns.put(player.getUniqueId(), System.currentTimeMillis());
     }
 
-    private void handleDeposit(Player player, double bedrag) {
+    public void handleDeposit(Player player, double bedrag) {
         // Controleer of speler fysiek geld heeft
         if (!hasMoneyItem(player, bedrag)) {
             player.sendMessage(ChatColor.RED + "❌ Je hebt niet genoeg fysiek geld om te storten.");
@@ -343,7 +347,7 @@ public class ATMGUI {
         }
     }
 
-    private enum ATMAction {
+    public enum ATMAction {
         WITHDRAW, DEPOSIT
     }
 }

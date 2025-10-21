@@ -14,20 +14,66 @@ atm:
 pin:
   blocks: []
 
+chat:
+  enabled: true
+  kleuren:
+    # Rank kleuren voor verschillende permissie groepen
+    rank:
+      owner: "&4"       # Donker rood voor eigenaar
+      admin: "&c"       # Rood voor admins
+      moderator: "&b"   # Aqua voor moderators
+      helper: "&a"      # Groen voor helpers
+      vip: "&6"         # Goud voor VIP spelers
+      player: "&7"      # Grijs voor normale spelers
+
+    # Speciale element kleuren
+    naam: "&f"          # Wit voor speelernames
+    bericht: "&f"       # Wit voor chat berichten
+    timestamp: "&8"     # Donker grijs voor timestamps
+
+    # Placeholder kleuren (voor gebruik met PlaceholderAPI)
+    placeholder:
+      prefix: "&7"      # Grijs voor prefix
+      suffix: "&7"      # Grijs voor suffix
+      wereld: "&e"      # Geel voor wereld naam
+
+  # Chat format (hoe de chat berichten eruit zien)
+  format: "[&8%timestamp%&f] %rank% %naam%&f: %bericht%"
+  
+
 # Scoreboard Configuration
 scoreboard:
   enabled: true
-  title: "&6&lMinetopia"
-  update-interval: 20  # ticks (1 seconde)
+  title: "{#FF6B6B>Demo<#FFD93D}"
+  update-interval: 20  
+
+  # Real-time update instellingen - ALLES STAAT STANDAARD AAN
+  real-time-updates:
+    enabled: true  
+    events:
+      player-join-quit: true  
+      economy-changes: true   
+      level-changes: true     
+      health-hunger-changes: true  # Staat nu ook standaard aan
+
   lines:
     - "&7&m--------------------"
     - "&eSpeler: &f%player_name%"
-    - "&eGeld: &a%vault_eco_balance_formatted%"
+    - "&eGeld Standaard: &a%vault_eco_balance_formatted%"
+    - "&eGeld Kort: &a%vault_eco_balance_short%"
+    - "&eGeld Valuta: &a%vault_eco_balance_currency%"
+    - "&eGeld Compact: &a%vault_eco_balance_compact%"
+    - "&eGeld Wetenschappelijk: &a%vault_eco_balance_scientific%"
     - "&eLevel: &f%player_level%"
     - "&eOnline: &f%server_online%"
     - "&7&m--------------------"
-    - "{#FF6B6B>MegaMC<#FFD93D} {#FF6B6B>Minetopia<#FFD93D}"
+    - "{#FF6B6B>Demo<#FFD93D}"
     - "&7&m--------------------"
+    - "&cDit is een voorbeeld van een hex kleur (#FF0000)"
+    - "&cDit is een voorbeeld van een rgb kleur (rgb(255,0,0))"
+    - "&cDit is een voorbeeld van een named kleur (red)"
+    - "{#FF0000>Dit is een voorbeeld van een gradient kleur<#00FF00>}"
+    - "<gradient:#FF0000:#00FF00>Dit is een voorbeeld van een gradient kleur</gradient>"
 
   # Additional features (can be toggled)
   features:
@@ -37,39 +83,64 @@ scoreboard:
     show-tps: true
     show-ping: true
     show-world: true
-    show-coordinates: false  # Can be spammy, so disabled by default
+    show-coordinates: false 
 
   # Color format settings
   colors:
-    enable-hex-colors: true  # Support for &#FF0000
-    enable-rgb-colors: true  # Support for rgb(255,0,0)
-    enable-named-colors: true  # Support for "red", "blue", etc.
-    enable-gradients: true  # Support for {#FF0000>text<#00FF00}
+    enable-hex-colors: true  
+    enable-rgb-colors: true  
+    enable-named-colors: true  
+    enable-gradients: true  
 
   # Animation settings (for future features)
   animations:
     enable-scrolling-text: false
-    scroll-speed: 2  # ticks per character
+    scroll-speed: 2 
 
-  # Position and styling
-  styling:
-    title-color: "&6"  # Default title color
-    line-spacing: 1  # Lines between sections
+  # Economy formatting settings
+  economy:
+    enabled: true
+    # Geld formaten die gebruikt kunnen worden in placeholders
+    formats:
+      # Standaard formaat met 2 decimalen
+      formatted: "%.2f"
+      # Kort formaat zonder decimalen
+      short: "%.0f"
+      # Lang formaat met valuta symbool
+      currency: "$%.2f"
+      # Compact formaat (gebruikt K/M/B voor grote bedragen)
+      compact: "auto"
+      # Wetenschappelijk formaat
+      scientific: "%.2e"
+
+    # Valuta symbool (kan worden gebruikt in plaats van $)
+    currency-symbol: "$"
+
+    # Ondersteunde placeholders:
+    # en ook custom vanuit placeholderapi
+    # %vault_eco_balance_formatted% - Gebruikt het standaard formaat
+    # %vault_eco_balance_short% - Kort formaat zonder decimalen
+    # %vault_eco_balance_currency% - Met valuta symbool
+    # %vault_eco_balance_compact% - Compact formaat voor grote bedragen
+    # %vault_eco_balance_scientific% - Wetenschappelijk formaat
 
 # Tablist Configuration
 tablist:
   enabled: true
-  update-interval: 40  # ticks (2 seconden)
+  update-interval: 40 
   header:
-    - "&7&m--------------------"
-    - "{#FF6B6B>MegaMC<#FFD93D} {#FF6B6B>Minetopia<#FFD93D}"
-    - "&7&m--------------------"
-    - "&6&lMegaMC Minetopia"
+    - "{#FF6B6B>Demo<#FFD93D}"
+    - "&7 "
     - "&7Welkom op onze server!"
     - "&7Online: &f%server_online%&7/&f%server_max_players%"
+    - "&cHex kleuren: &#FF0000Deze tekst is rood"
+    - "&cRGB kleuren: rgb(255,0,0)Deze tekst is ook rood"
+    - "&cNamed kleuren: &redDeze tekst is rood"
+    - "{#FF0000>Gradient voorbeeld<#00FF00>}"
+    - "<gradient:#FF0000:#00FF00>Gradient voorbeeld</gradient>"
   footer:
     - "&7&m--------------------"
-    - "&7Website: &e&nwww.megamc.nl"
-    - "&7Discord: &e&ndiscord.gg/megamc"
+    - "&7Website: &e&nwww.demo.nl"
+    - "&7Discord: &e&ndiscord.gg/demo"
     - "&e&lVeel plezier!"
     - "&7&m--------------------"

@@ -7,7 +7,6 @@ import java.util.regex.Pattern;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
 public class TablistManager {
@@ -41,12 +40,7 @@ public class TablistManager {
     private void startUpdateTask() {
         stopUpdateTask(); // Stop bestaande task
 
-        updateTask = new BukkitRunnable() {
-            @Override
-            public void run() {
-                updateTablist();
-            }
-        }.runTaskTimer(plugin, updateInterval, updateInterval);
+        updateTask = Bukkit.getScheduler().runTaskTimer(plugin, () -> updateTablist(), updateInterval, updateInterval);
     }
 
     private void stopUpdateTask() {
@@ -111,6 +105,19 @@ public class TablistManager {
     }
 
     private String processGradientsAndStandaloneHex(String text) {
+        // Ondersteuning voor MiniMessage gradient tags <gradient:#RRGGBB:#RRGGBB>tekst</gradient>
+        Pattern miniMessageGradientPattern = Pattern.compile("<gradient:#([0-9A-Fa-f]{3,6}):#([0-9A-Fa-f]{3,6})>(.+?)</gradient>");
+        Matcher miniMessageMatcher = miniMessageGradientPattern.matcher(text);
+
+        while (miniMessageMatcher.find()) {
+            String startColor = miniMessageMatcher.group(1);
+            String endColor = miniMessageMatcher.group(2);
+            String gradientText = miniMessageMatcher.group(3);
+
+            String gradient = createGradient(gradientText, startColor, endColor);
+            text = text.replace(miniMessageMatcher.group(0), gradient);
+        }
+
         // Ondersteuning voor gradient tags {#RRGGBB>tekst<#RRGGBB}
         Pattern gradientPattern = Pattern.compile("\\{#([0-9A-Fa-f]{6})>(.+?)<#([0-9A-Fa-f]{6})\\}");
         Matcher matcher = gradientPattern.matcher(text);
@@ -134,6 +141,21 @@ public class TablistManager {
             text = text.replace(hexMatcher.group(0), minecraftColor);
         }
 
+        // Ondersteuning voor &# kleuren
+        Pattern hashHexPattern = Pattern.compile("&#([0-9A-Fa-f]{6})");
+        Matcher hashHexMatcher = hashHexPattern.matcher(text);
+
+        while (hashHexMatcher.find()) {
+            String hexColor = hashHexMatcher.group(1);
+            if (isValidHexColor(hexColor)) {
+                String minecraftColor = convertHexToMinecraft(hexColor);
+                text = text.replace(hashHexMatcher.group(0), minecraftColor);
+            } else {
+                // Invalid color, keep original for debugging
+                // text = text.replace(hashHexMatcher.group(0), hashHexMatcher.group(0));
+            }
+        }
+
         return text;
     }
 
@@ -151,6 +173,17 @@ public class TablistManager {
                     hexColor.charAt(4), hexColor.charAt(5));
         } catch (NumberFormatException e) {
             return "";
+        }
+    }
+
+    private boolean isValidHexColor(String hexColor) {
+        if (hexColor == null || hexColor.length() != 6) return false;
+
+        try {
+            Integer.valueOf(hexColor, 16);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
         }
     }
 

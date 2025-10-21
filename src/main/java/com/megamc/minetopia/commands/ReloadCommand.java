@@ -20,14 +20,36 @@ public class ReloadCommand implements CommandExecutor {
 
         // Only OP players or console can use this
         if (sender instanceof Player player && !player.isOp()) {
-            sender.sendMessage("§cYou do not have permission to use this command!");
+            sender.sendMessage("§cJe hebt geen toestemming om dit commando te gebruiken!");
             return true;
         }
 
-        sender.sendMessage("§aMegaMCMinetopia configuration reloaded successfully!");
+        sender.sendMessage("§aMegaMCMinetopia configuratie wordt herladen...");
 
-        // Reload scoreboard and tablist configuration
-        plugin.reloadScoreboardTablistConfig();
+        try {
+            // Herlaad de plugin configuratie
+            plugin.reloadConfig();
+            plugin.saveDefaultConfig();
+
+            // Herlaad scoreboard en tablist configuratie
+            plugin.reloadScoreboardTablistConfig();
+
+            // Herlaad ATM en PIN blokken
+            plugin.loadATMBlocks();
+            plugin.loadPinBlocks();
+
+            sender.sendMessage("§aMegaMCMinetopia configuratie succesvol herladen!");
+            sender.sendMessage("§7- Scoreboard configuratie herladen");
+            sender.sendMessage("§7- Tablist configuratie herladen");
+            sender.sendMessage("§7- Chat kleuren configuratie herladen");
+            sender.sendMessage("§7- ATM blokken herladen");
+            sender.sendMessage("§7- PIN blokken herladen");
+
+        } catch (Exception e) {
+            sender.sendMessage("§cEr is een fout opgetreden bij het herladen: " + e.getMessage());
+            plugin.getLogger().severe("Failed to reload configuration: " + e.getMessage());
+            e.printStackTrace();
+        }
 
         return true;
     }

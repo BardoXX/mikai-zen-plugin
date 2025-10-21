@@ -8,16 +8,16 @@ import java.util.Set;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.World;
-import org.bukkit.plugin.RegisteredServiceProvider;
-import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.Material;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.plugin.RegisteredServiceProvider;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import com.megamc.minetopia.commands.ATMCommand;
 import com.megamc.minetopia.commands.ATMGUI;
@@ -30,19 +30,20 @@ import com.megamc.minetopia.commands.FouilleerCommand;
 import com.megamc.minetopia.commands.KvkCommand;
 import com.megamc.minetopia.commands.LeningCommand;
 import com.megamc.minetopia.commands.PassportCommand;
+import com.megamc.minetopia.commands.PinCommand;
 import com.megamc.minetopia.commands.ReloadCommand;
 import com.megamc.minetopia.commands.SaldoCommand;
 import com.megamc.minetopia.commands.StrafCommand;
 import com.megamc.minetopia.commands.VanishCommand;
 import com.megamc.minetopia.commands.VergunningCommand;
-import com.megamc.minetopia.ScoreboardManager;
-import com.megamc.minetopia.TablistManager;
 import com.megamc.minetopia.events.ATMBlockListener;
 import com.megamc.minetopia.events.ATMChatListener;
-import com.megamc.minetopia.events.DisableCraft;
 import com.megamc.minetopia.events.BalanceEvent;
+import com.megamc.minetopia.events.ChatListener;
+import com.megamc.minetopia.events.DisableCraft;
 import com.megamc.minetopia.events.ScoreboardTablistListener;
-
+import com.megamc.minetopia.ScoreboardManager;
+import com.megamc.minetopia.TablistManager;
 import net.milkbowl.vault.economy.Economy;
 
 public class Minetopia extends JavaPlugin {
@@ -150,6 +151,9 @@ public class Minetopia extends JavaPlugin {
         // Register scoreboard and tablist event listener
         Bukkit.getPluginManager().registerEvents(new ScoreboardTablistListener(scoreboardManager, tablistManager), this);
 
+        // Register chat listener for colored chat
+        Bukkit.getPluginManager().registerEvents(new ChatListener(this), this);
+
         // ATM GUI click handler
         Bukkit.getPluginManager().registerEvents(new Listener() {
             @EventHandler
@@ -188,7 +192,7 @@ public class Minetopia extends JavaPlugin {
     }
 
     private void startATMParticleScheduler() {
-        new BukkitRunnable() {
+        Bukkit.getScheduler().runTaskTimer(this, new Runnable() {
             @Override
             public void run() {
                 for (Location atmLocation : atmBlocks) {
@@ -197,7 +201,7 @@ public class Minetopia extends JavaPlugin {
                     atmLocation.getWorld().spawnParticle(Particle.VILLAGER_HAPPY, particleLocation, 3, 0.2, 0.5, 0.2, 0.01);
                 }
             }
-        }.runTaskTimer(this, 0L, 40L); // Run every 2 seconds (40 ticks)
+        }, 0L, 40L);
     }
 
     public void saveATMBlocks() {

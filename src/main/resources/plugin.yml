@@ -58,7 +58,11 @@ commands:
     usage: /vanish
     permission: megamc.vanish
     permission-message: "§cYou do not have permission to use this command!"
-
+  megamcminetopiareload:
+    description: Herlaad de plugin configuratie
+    permission: megamc.reload
+    permission-message: Je hebt geen toestemming om dit commando te gebruiken.
+    usage: /megamcminetopiareload
 permissions:
   megamc.lening:
     description: Toegang tot /lening
@@ -95,4 +99,7 @@ permissions:
     default: op
   megamc.pin:
     description: Toegang tot /pin
+    default: op
+  megamc.reload:
+    description: Toegang tot /megamcminetopiareload
     default: op
